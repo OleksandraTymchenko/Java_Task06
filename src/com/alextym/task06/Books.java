@@ -3,13 +3,11 @@ package com.alextym.task06;
 import java.util.Arrays;
 
 public class Books {
-    private int i;
-    private int count = 0;
+
+    private int countBooks = 0;
     private Book[] books;
-    private Book[] search;
 
     public Books(int i) {
-        this.i = i;
         books = new Book[i];
     }
 
@@ -22,15 +20,18 @@ public class Books {
     }
 
     public void addBook(Book book) {
-        if (books[count] == null) {
-            books[count] = book;
+        if (countBooks == books.length) {
+            return;
         }
-        count++;
+        books[countBooks++] = book;
     }
 
     public void printBooks() {
+        if(countBooks == 0) {
+            System.out.println("No results found");
+        }
         for (Book elem : books) {
-            elem.view();
+             elem.view();
         }
     }
 
@@ -51,9 +52,6 @@ public class Books {
             if (elem.getAuthor().equals(str)) {
                 search[count] = elem;
                 count++;
-            }else{
-                System.out.println("Извините, книги данного автора не найдены");
-                break;
             }
         }
         return Arrays.copyOf(search, count);
@@ -66,10 +64,6 @@ public class Books {
             if (elem.getYear() > y) {
                 search[count] = elem;
                 count++;
-            }
-            else{
-                System.out.println("Извините, книги за указанный период не найдены");
-                break;
             }
         }
         return Arrays.copyOf(search, count);
